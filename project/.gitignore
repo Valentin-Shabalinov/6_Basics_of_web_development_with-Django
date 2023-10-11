@@ -1,0 +1,9 @@
+.DS_Store
+/venv
+/env
+/db.sqlite3
+/config/__pycache__
+/config/__init__.py
+/catalog/__pycache__
+/catalog/__init__.py
+/migrations/__init__.py
