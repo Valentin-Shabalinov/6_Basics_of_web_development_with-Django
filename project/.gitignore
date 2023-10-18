@@ -6,4 +6,6 @@
 /config/__init__.py
 /catalog/__pycache__
 /catalog/__init__.py
-/migrations/__init__.py
+/catalog/migrations/__init__.py
+/catalog/management/commands/__init__.py
+/catalog/management/__init__.py
