@@ -13,9 +13,6 @@ class Command(BaseCommand):
             {'name': 'Фрукты', 'description': 'Фрукты полезны'},
         ]
 
-        # for category_item in category_list:
-        #     Category.objects.create(**category_item)
-
 
         category_for_create = []
         for category_item in category_list:
