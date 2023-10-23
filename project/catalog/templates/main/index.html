@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+{% load my_tags %}
+{% block content %}
+ 
+  <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel" data-bs-theme="light">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+    <div class="carousel-inner">
+        {% for category in category_list %}
+            <div class="carousel-item active">
+                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
+                <div class="container">
+                    <div class="carousel-caption text-start">
+                        <h1>{{ category }}</h1>
+                        <p class="opacity-75"> {{ category.description }} </p>
+                        <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <div class="container marketing">
+    <div class="row">
+      {% for object in object_list %}
+        <div class="col-lg-4">
+            <img class="rounded-circle" alt="avatar1" src="{% mediapath object.image %}" width="140" height="140" />
+            <h2 class="fw-normal">{{ object }}</h2>
+            <p> {{ object.description|slice:100 }} </p>
+            <p><a class="btn btn-secondary" href="{% url 'catalog:index_one' object.pk %}">К продуктам &raquo;</a></p>
+        </div>
+      {% endfor %}
+    </div>
+{% endblock %}

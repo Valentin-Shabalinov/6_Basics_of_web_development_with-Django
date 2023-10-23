@@ -9,3 +9,4 @@
 /catalog/migrations/__init__.py
 /catalog/management/commands/__init__.py
 /catalog/management/__init__.py
+/.DS_Store
