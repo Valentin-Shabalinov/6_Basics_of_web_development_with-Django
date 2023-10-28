@@ -10,3 +10,5 @@
 /catalog/management/commands/__init__.py
 /catalog/management/__init__.py
 /.DS_Store
+/post/__init__.py
+/post/migrations/__init__.py
