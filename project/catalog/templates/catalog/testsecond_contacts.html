@@ -1,0 +1,44 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="font-weight-light">Контактные данные</h1>
+        <p class="lead text-muted"><pre>
+  Страна USA
+  ИНН 	91-1144442
+  Адрес  Redmond,WA,98052-6399
+</pre></p>
+        <p>
+          <a href="#" class="btn btn-primary my-2">Призыв к действию</a>
+          <a href="#" class="btn btn-secondary my-2">Второе действие</a>
+        </p>
+      </div>
+    </div>
+
+    <form method="post">
+  {% csrf_token %}
+  <div class="mb-1">
+    <label for="exampleInputEmail1" class="form-label">Имя</label>
+    <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <div id="emailHelp" class="form-text">Введите данные для связи.</div>
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Email</label>
+    <input type="email" name="email" class="form-control" id="exampleInputPassword1">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Отправить данные</button>
+</form>
+
+  </section>
+
+
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

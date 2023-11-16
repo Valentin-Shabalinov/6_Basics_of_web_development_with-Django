@@ -16,12 +16,16 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="post",
             name="count_views",
-            field=models.IntegerField(default=0, verbose_name="Количество просмотров"),
+            field=models.IntegerField(
+                default=0, verbose_name="Количество просмотров"
+            ),
         ),
         migrations.AddField(
             model_name="post",
             name="publication_sign",
-            field=models.BooleanField(default=True, verbose_name="Признак публикации"),
+            field=models.BooleanField(
+                default=True, verbose_name="Признак публикации"
+            ),
         ),
         migrations.AddField(
             model_name="post",

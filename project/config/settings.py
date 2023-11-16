@@ -3,7 +3,9 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "django-insecure-j7()xz__521rxn^c9=o+=o&^&9yz=lf2igok1_)8a!gae_+34f"
+SECRET_KEY = (
+    "django-insecure-j7()xz__521rxn^c9=o+=o&^&9yz=lf2igok1_)8a!gae_+34f"
+)
 
 
 DEBUG = True
@@ -18,9 +20,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "catalog",
-    "post",
+    "materials",
 ]
 
 MIDDLEWARE = [
@@ -58,10 +59,10 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "test_db",
-        "USER": 'root',
-        'PASSWORD': 'root', 
-        'HOST': '127.0.0.1',
-        'PORT': 5433,
+        "USER": "root",
+        "PASSWORD": "root",
+        "HOST": "127.0.0.1",
+        "PORT": 5433,
     }
 }
 
@@ -91,14 +92,12 @@ USE_I18N = True
 USE_TZ = True
 
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-STATICFILES_DIRS = (
-    BASE_DIR / 'static',
-)
+STATICFILES_DIRS = (BASE_DIR / "static",)
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"

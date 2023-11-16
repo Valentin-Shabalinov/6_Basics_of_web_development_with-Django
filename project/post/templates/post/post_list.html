@@ -1,13 +1,16 @@
 {% extends 'main/base.html' %}
 {% load my_tags %}
+{% load static %}
 {% block content %}
+
  
   <div class="col-12 mb-5">
-      <a type="button" class="btn btn-primary row gy-10 col-sm-2" href="{% url 'post:create' %}">Добавить запись</a>
+      <a class="btn btn-primary row gy-10 col-sm-2" href="{% url 'post:create' %}">Добавить запись</a>
   </div>
 
   <div class="container marketing">
     <div class="row">
+      
       {% for object in object_list %}
         <div class="col-lg-4">
             <img class="rounded" alt="avatar1" src="{% mediapath object.image %}" width="140" height="140" />
@@ -24,4 +27,5 @@
         </div>
       {% endfor %}
     </div>
+    
 {% endblock %}

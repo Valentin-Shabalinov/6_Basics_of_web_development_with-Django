@@ -12,6 +12,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="post",
             name="date_of_creation",
-            field=models.DateTimeField(auto_now_add=True, verbose_name="Дата создания"),
+            field=models.DateTimeField(
+                auto_now_add=True, verbose_name="Дата создания"
+            ),
         ),
     ]
