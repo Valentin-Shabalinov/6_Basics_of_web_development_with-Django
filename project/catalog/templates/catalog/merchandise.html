@@ -1,0 +1,61 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+{% block content %}
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="font-weight-light">Пример альбома</h1>
+        <p class="lead text-muted">Что-то краткое о коллекции ниже - ее содержание, создатель и т.д. Сделайте ее короткой и увлекательной, но не слишком короткой, чтобы люди не пропустили ее полностью.</p>
+        <p>
+          <a href="{% url 'catalog:create_product' %}" class="btn btn-primary my-2">Добавить продукт</a>
+          <a href="{% url 'catalog:merchandise' %}" class="btn btn-secondary my-2">Каталог</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for object in object_list%}
+        <div class="col">
+          <div class="card shadow-sm">
+
+
+
+            <div class="card-body">
+              <p class="card-text"><h2>{{ object.title }}</h2>
+
+              {% for version in object.version_set.all %}
+                        {% if version.is_active_version %}
+                            <p>Активная версия: {{ version.version_number }} - {{ version.version_name }}</p>
+                        {% endif %}
+                    {% endfor %}
+
+              {{object.description|truncatechars:100}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a href="{% url 'catalog:view_product' object.id %}" class="btn btn-sm btn-outline-secondary">Cмотреть</a>
+                  <a href="{% url 'catalog:update_product' object.pk %}" class="btn btn-sm btn-outline-secondary">Изменить</a>
+                  <a href="{% url 'catalog:delete_product' object.pk %}" class="btn btn-sm btn-outline-secondary">Удалить</a>
+                  {% if object.is_active %}
+                    <a class="btn btn-sm btn-outline-danger" href="{% url 'catalog:toggle_activity' object.pk %}" class="btn btn-sm btn-outline-secondary">Скрыть</a>
+                  {% else %}
+                    <a class="btn btn-sm btn-outline-success" href="{% url 'catalog:toggle_activity' object.pk %}" class="btn btn-sm btn-outline-secondary">Показать</a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

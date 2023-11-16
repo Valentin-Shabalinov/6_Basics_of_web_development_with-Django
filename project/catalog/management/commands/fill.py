@@ -4,15 +4,16 @@ from catalog.models import Category
 
 
 class Command(BaseCommand):
-
     def handle(self, *args, **options):
         category_list = [
-            {'name': 'Вода', 'description': ' Вода без газа'},
-            {'name': 'Сухофрукты', 'description': 'Сушоные фрукты'},
-            {'name': 'Сладости', 'description': 'Сладости с добавлением сахара'},
-            {'name': 'Фрукты', 'description': 'Фрукты полезны'},
+            {"name": "Вода", "description": " Вода без газа"},
+            {"name": "Сухофрукты", "description": "Сушоные фрукты"},
+            {
+                "name": "Сладости",
+                "description": "Сладости с добавлением сахара",
+            },
+            {"name": "Фрукты", "description": "Фрукты полезны"},
         ]
-
 
         category_for_create = []
         for category_item in category_list:

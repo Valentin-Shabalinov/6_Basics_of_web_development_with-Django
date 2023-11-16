@@ -1,0 +1,29 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+{% block content %}
+
+
+
+
+
+<div class="album py-5 bg-light">
+    <div class="container">
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+
+<div class="card" style="width: 25rem;">
+  <img src="{{ object.preview|mymedia }}" width="367" height="250" />
+  <div class="card-body">
+    <p class="card-text">{{ object.description }}</p>
+  </div>
+</div>
+
+
+</div>
+</div>
+</div>
+
+
+
+
+{% endblock %}
