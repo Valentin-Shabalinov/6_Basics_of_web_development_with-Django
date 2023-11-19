@@ -12,3 +12,4 @@
 /.DS_Store
 /post/__init__.py
 /post/migrations/__init__.py
+/users/__init__.py

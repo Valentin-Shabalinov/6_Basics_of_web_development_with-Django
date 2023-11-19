@@ -1,14 +1,12 @@
 from django.db import models
 from django.utils import timezone
 
-# Create your models here.
 
 NULLABLE = {"blank": True, "null": True}
 
 
 class Product(models.Model):
-    # first_name = models.CharField(max_length=150, verbose_name='имя')
-    # last_name = models.CharField(max_length=150, verbose_name='фамилия')
+
 
     title = models.CharField(
         max_length=100, verbose_name="название", unique=True, **NULLABLE
@@ -30,11 +28,10 @@ class Product(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        # Строковое отображение объекта
         return f"{self.pk} {self.title} {self.purchase_price} {self.category}"
 
     class Meta:
-        verbose_name = "продукт"  # Настройка для наименования одного объекта
+        verbose_name = "продукт"
         verbose_name_plural = "продукты"
 
 
@@ -45,11 +42,11 @@ class Category(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        # Строковое отображение объекта
+
         return self.title
 
     class Meta:
-        verbose_name = "категория"  # Настройка для наименования одного объекта
+        verbose_name = "категория"
         verbose_name_plural = "категории"
 
 
@@ -66,9 +63,8 @@ class Version(models.Model):
     )
 
     def __str__(self):
-        # Строковое отображение объекта
         return self.version_name
 
     class Meta:
-        verbose_name = "версия"  # Настройка для наименования одного объекта
+        verbose_name = "версия"  
         verbose_name_plural = "версии"
