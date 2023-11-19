@@ -19,11 +19,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class ProductListView(ListView):
     model = Product
-    # template_name = 'catalog/testmain.html'
 
-
-# def index(request):
-#     return render(request, 'catalog/testmain.html')
 
 
 def contacts(request):
@@ -47,34 +43,8 @@ class MerchandiseListView(ListView):
         return context
 
 
-# def merchandise(request):
-#     product_list = Product.objects.all()
-#
-#     context = {
-#         'object_list':product_list
-#     }
-#
-#     return render(request, 'catalog/merchandise.html', context)
-
-
 class ProductDetailView(DetailView):
     model = Product
-    # template_name = "catalog/view_product.html" - view_product
-
-
-# def view_product(request, pk):
-#     product_item = get_object_or_404(Product, pk=pk)
-#     context = {
-#         'object': product_item,
-#     }
-#     return render(request, "catalog/view_product.html", context)
-
-
-# class ProductCreateView(CreateView):
-#     model = Product
-#     fields = ('title', 'description', 'preview', 'category', 'purchase_price', 'date_creation', 'date_modified')
-#     success_url = reverse_lazy('catalog:merchandise')
-
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
@@ -84,12 +54,6 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
-
-
-# class ProductUpdateView(UpdateView):
-#     model = Product
-#     fields = ('title', 'description', 'preview', 'category', 'purchase_price', 'date_creation', 'date_modified')
-#     success_url = reverse_lazy('catalog:merchandise')
 
 
 class ProductUpdateView(UpdateView):

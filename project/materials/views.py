@@ -44,7 +44,6 @@ class MaterialUpdateView(UpdateView):
         "published",
         "counter_views",
     )
-    # success_url = reverse_lazy('materials:list')
 
     def form_valid(self, form):
         if form.is_valid:

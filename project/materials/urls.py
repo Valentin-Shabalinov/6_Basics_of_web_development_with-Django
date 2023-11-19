@@ -1,6 +1,5 @@
 from django.urls import path
 
-# from catalog.views import contacts, merchandise, ProductListView, ProductDetailView
 
 from materials.apps import MaterialsConfig
 from materials.views import (
