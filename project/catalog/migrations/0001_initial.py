@@ -22,7 +22,12 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("name", models.CharField(max_length=100, verbose_name="Наименование")),
+                (
+                    "name",
+                    models.CharField(
+                        max_length=100, verbose_name="Наименование"
+                    ),
+                ),
                 ("description", models.TextField(verbose_name="Описание")),
             ],
             options={
@@ -42,7 +47,12 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("name", models.CharField(max_length=100, verbose_name="Наименование")),
+                (
+                    "name",
+                    models.CharField(
+                        max_length=100, verbose_name="Наименование"
+                    ),
+                ),
                 ("description", models.TextField(verbose_name="Описание")),
                 (
                     "image",
@@ -53,14 +63,19 @@ class Migration(migrations.Migration):
                         verbose_name="Изображение",
                     ),
                 ),
-                ("purchase_price", models.IntegerField(verbose_name="Цена за покупку")),
+                (
+                    "purchase_price",
+                    models.IntegerField(verbose_name="Цена за покупку"),
+                ),
                 (
                     "date_of_creation",
                     models.DateTimeField(verbose_name="Дата создания"),
                 ),
                 (
                     "last_modified_date",
-                    models.DateTimeField(verbose_name="Дата последнего изменения"),
+                    models.DateTimeField(
+                        verbose_name="Дата последнего изменения"
+                    ),
                 ),
                 (
                     "category",
