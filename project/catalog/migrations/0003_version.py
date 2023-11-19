@@ -24,15 +24,21 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "version_number",
-                    models.PositiveIntegerField(default=0, verbose_name="номер версии"),
+                    models.PositiveIntegerField(
+                        default=0, verbose_name="номер версии"
+                    ),
                 ),
                 (
                     "version_name",
-                    models.CharField(max_length=100, verbose_name="название версии"),
+                    models.CharField(
+                        max_length=100, verbose_name="название версии"
+                    ),
                 ),
                 (
                     "is_active_version",
-                    models.BooleanField(default=True, verbose_name="статус версии"),
+                    models.BooleanField(
+                        default=True, verbose_name="статус версии"
+                    ),
                 ),
                 (
                     "product",

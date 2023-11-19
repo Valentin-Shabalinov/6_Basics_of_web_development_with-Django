@@ -6,8 +6,6 @@ NULLABLE = {"blank": True, "null": True}
 
 
 class Product(models.Model):
-
-
     title = models.CharField(
         max_length=100, verbose_name="название", unique=True, **NULLABLE
     )
@@ -42,7 +40,6 @@ class Category(models.Model):
     description = models.TextField()
 
     def __str__(self):
-
         return self.title
 
     class Meta:
@@ -66,5 +63,5 @@ class Version(models.Model):
         return self.version_name
 
     class Meta:
-        verbose_name = "версия"  
+        verbose_name = "версия"
         verbose_name_plural = "версии"

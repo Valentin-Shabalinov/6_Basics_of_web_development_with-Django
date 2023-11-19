@@ -21,7 +21,6 @@ class ProductListView(ListView):
     model = Product
 
 
-
 def contacts(request):
     if request.method == "POST":
         name = request.POST.get("name")
@@ -45,6 +44,7 @@ class MerchandiseListView(ListView):
 
 class ProductDetailView(DetailView):
     model = Product
+
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product

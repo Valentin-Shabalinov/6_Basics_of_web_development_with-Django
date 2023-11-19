@@ -2,7 +2,6 @@ from django.db import models
 from django.utils import timezone
 
 
-
 class Material(models.Model):
     title = models.CharField(max_length=100, verbose_name="название")
     slug = models.CharField(

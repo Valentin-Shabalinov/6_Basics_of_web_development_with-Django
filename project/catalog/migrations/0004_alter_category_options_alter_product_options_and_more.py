@@ -12,11 +12,17 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name="category",
-            options={"verbose_name": "категория", "verbose_name_plural": "категории"},
+            options={
+                "verbose_name": "категория",
+                "verbose_name_plural": "категории",
+            },
         ),
         migrations.AlterModelOptions(
             name="product",
-            options={"verbose_name": "продукт", "verbose_name_plural": "продукты"},
+            options={
+                "verbose_name": "продукт",
+                "verbose_name_plural": "продукты",
+            },
         ),
         migrations.RemoveField(
             model_name="category",
@@ -56,7 +62,8 @@ class Migration(migrations.Migration):
             model_name="product",
             name="date_modified",
             field=models.DateTimeField(
-                default=django.utils.timezone.now, verbose_name="дата изменения"
+                default=django.utils.timezone.now,
+                verbose_name="дата изменения",
             ),
         ),
         migrations.AddField(
@@ -68,7 +75,10 @@ class Migration(migrations.Migration):
             model_name="product",
             name="preview",
             field=models.ImageField(
-                blank=True, null=True, upload_to="product/", verbose_name="превью"
+                blank=True,
+                null=True,
+                upload_to="product/",
+                verbose_name="превью",
             ),
         ),
         migrations.AddField(
