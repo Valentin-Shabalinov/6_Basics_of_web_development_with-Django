@@ -5,24 +5,51 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('catalog', '0004_alter_product_views_count'),
+        ("catalog", "0004_alter_product_views_count"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Version',
+            name="Version",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('version_number', models.IntegerField(verbose_name='номер версии')),
-                ('version_name', models.CharField(max_length=100, verbose_name='название версии')),
-                ('is_active', models.BooleanField(default=True, verbose_name='текущая версия')),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='catalog.product', verbose_name='продукт')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "version_number",
+                    models.IntegerField(verbose_name="номер версии"),
+                ),
+                (
+                    "version_name",
+                    models.CharField(
+                        max_length=100, verbose_name="название версии"
+                    ),
+                ),
+                (
+                    "is_active",
+                    models.BooleanField(
+                        default=True, verbose_name="текущая версия"
+                    ),
+                ),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="catalog.product",
+                        verbose_name="продукт",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'версия',
-                'verbose_name_plural': 'версии',
+                "verbose_name": "версия",
+                "verbose_name_plural": "версии",
             },
         ),
     ]

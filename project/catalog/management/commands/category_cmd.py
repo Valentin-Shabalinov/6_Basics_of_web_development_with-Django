@@ -3,12 +3,20 @@ from catalog.models import Category
 
 
 class Command(BaseCommand):
-
     def handle(self, *args, **options):
         category_list = [
-            {'name': 'мягкая мебель', 'description': 'лучшие вещи для пассивного отдыха'},
-            {'name': 'игрушки', 'description': 'все для приятного и полезного досуга'},
-            {'name': 'электроинструмент', 'description': 'с ними любой ремонт - сплошное удовольствие'}
+            {
+                "name": "мягкая мебель",
+                "description": "лучшие вещи для пассивного отдыха",
+            },
+            {
+                "name": "игрушки",
+                "description": "все для приятного и полезного досуга",
+            },
+            {
+                "name": "электроинструмент",
+                "description": "с ними любой ремонт - сплошное удовольствие",
+            },
         ]
 
         category_for_create = []
