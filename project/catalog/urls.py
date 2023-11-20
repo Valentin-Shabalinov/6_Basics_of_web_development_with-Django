@@ -1,31 +1,18 @@
-from django.urls import path, include
-from catalog.views import (
-    contacts,
-    ProductListView,
-    ProductDetailView,
-    MerchandiseListView,
-    ProductCreateView,
-    ProductUpdateView,
-    ProductDeleteView,
-    toggle_activity,
-)
+from django.urls import path
+from django.views.decorators.cache import cache_page, never_cache
 
 from catalog.apps import CatalogConfig
+from catalog.views import *
 
 app_name = CatalogConfig.name
 
-
 urlpatterns = [
-    path("", ProductListView.as_view(), name="index"),
-    path("contacts", contacts, name="contacts"),
-    path("merchandise", MerchandiseListView.as_view(), name="merchandise"),
-    path("create/", ProductCreateView.as_view(), name="create_product"),
-    path(
-        "update/<int:pk>/", ProductUpdateView.as_view(), name="update_product"
-    ),
-    path("<int:pk>/view/", ProductDetailView.as_view(), name="view_product"),
-    path(
-        "delete/<int:pk>/", ProductDeleteView.as_view(), name="delete_product"
-    ),
-    path("activity/<int:pk>/", toggle_activity, name="toggle_activity"),
+    path('', home, name='home'),
+    path('contacts/', contacts, name='contacts'),
+    path('catalog/', ProductListView.as_view(), name='list_product'),
+    path('catalog/create/', never_cache(ProductCreateView.as_view()), name='create_product'),
+    path('catalog/view/<int:pk>/', cache_page(60)(ProductDetailView.as_view()), name='view_product'),
+    path('catalog/edit/<int:pk>/', never_cache(ProductUpdateView.as_view()), name='edit_product'),
+    path('catalog/delete/<int:pk>/', ProductDeleteView.as_view(), name='delete_product'),
+    path('catalog/version_create/', VersionCreateView.as_view(), name='version_create')
 ]
