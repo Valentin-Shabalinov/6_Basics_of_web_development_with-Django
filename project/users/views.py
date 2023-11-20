@@ -1,67 +1,71 @@
-import random
-from random import randint
-from django.shortcuts import render
-
+from django.conf import settings
+from django.core.mail import send_mail
+from django.shortcuts import redirect, render
+from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, UpdateView
-from users.models import User
+import random
+from string import ascii_letters, digits
 
 from users.forms import UserRegisterForm, UserProfileForm
-from django.urls import reverse_lazy, reverse
-from django.shortcuts import redirect
-from django.core.mail import send_mail
-from django.conf import settings
+from users.models import User
 
 
 class RegisterView(CreateView):
     model = User
     form_class = UserRegisterForm
-    success_url = reverse_lazy("users:login")
-    template_name = "users/register.html"
+    template_name = 'users/register.html'
+    success_url = reverse_lazy('users:login')
 
     def form_valid(self, form):
-        verified_password = ""
-        for i in range(8):
-            i = randint(0, 9)
-            verified_password += str(i)
-
-        form.verified_password = verified_password
-        user = form.save()
-        user.verified_password = verified_password
-        send_mail(
-            subject="Верификация почты",
-            message=f"Если вы регистрировались в Skystore: нажмите на ссылку: http://127.0.0.1:8000/users/verifying?code={user.verified_password}\n Так вы подтвердите почту",
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[user.email],
-        )
-
+        if form.is_valid():
+            password = ""
+            for i in range(8):
+                password += random.choice(list(ascii_letters + digits))
+            new_user = form.save()
+            new_user.verification_code = password
+            new_user.is_active = False
+            send_mail(
+                'Подтвердите',
+                f'Для подтверждения почты пройдите по ссылке http://127.0.0.1:8000/users/verification/{password}',
+                settings.EMAIL_HOST_USER,
+                [new_user.email]
+            )
         return super().form_valid(form)
-
-
-def verify_view(request):
-    code = int(request.GET.get("code"))
-    user = User.objects.get(verified_password=code)
-    user.verified = True
-    user.save()
-    return render(request, "users/verifying.html")
 
 
 class ProfileView(UpdateView):
     model = User
     form_class = UserProfileForm
-    success_url = reverse_lazy("users:profile")
+    success_url = reverse_lazy('users:profile')
 
     def get_object(self, queryset=None):
         return self.request.user
 
 
-def generate_new_password(request):
-    new_password = "".join([str(random.randint(0, 9)) for _ in range(12)])
-    send_mail(
-        subject="Вы сменили пароль",
-        message=f"Ваш новый пароль: {new_password}",
-        from_email=settings.EMAIL_HOST_USER,
-        recipient_list=[request.user.email],
-    )
-    request.user.set_password(new_password)
-    request.user.save()
-    return redirect(reverse("catalog:merchandise"))
+def mail_verification(verification_code):
+    user = User.objects.get(verification_code=verification_code)
+    if user is not None:
+        user.is_active = True
+        user.save()
+    return redirect('users:login')
+
+
+def password_recovery(request):
+    if request.method == 'POST':
+        new_password = ""
+        for i in range(8):
+            new_password += random.choice(list(ascii_letters + digits))
+        print(new_password)
+        email = request.POST.get('email')
+        print(email)
+        send_mail(
+            'Новый пароль',
+            f'Ваш новый пароль: {new_password}',
+            settings.EMAIL_HOST_USER,
+            [email]
+        )
+        user = User.objects.get(email=email)
+        if user is not None:
+            user.set_password(new_password)
+            user.save()
+    return render(request, 'users/recovery.html')

@@ -1,67 +1,71 @@
+from django.conf import settings
 from django.db import models
-from django.utils import timezone
 
-
-NULLABLE = {"blank": True, "null": True}
+NULLABLE = {'null': True, 'blank': True}
 
 
 class Product(models.Model):
-    title = models.CharField(
-        max_length=100, verbose_name="название", unique=True, **NULLABLE
-    )
-    description = models.TextField(unique=True, **NULLABLE)
-    preview = models.ImageField(
-        upload_to="product/", verbose_name="превью", **NULLABLE
-    )
-    category = models.ForeignKey("Category", on_delete=models.CASCADE)
-    purchase_price = models.PositiveIntegerField(
-        default=0, verbose_name="цена"
-    )
-    date_creation = models.DateTimeField(
-        default=timezone.now, verbose_name="дата создания"
-    )
-    date_modified = models.DateTimeField(
-        default=timezone.now, verbose_name="дата изменения"
-    )
-    is_active = models.BooleanField(default=True)
+    name = models.CharField(max_length=100, verbose_name='Наименование')
+    description = models.TextField(verbose_name='Описание')
+    image = models.ImageField(upload_to='catalog/', null=True, blank=True, verbose_name='Изображение')
+    category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name='Категория')
+    price = models.DecimalField(max_digits=12, decimal_places=2, verbose_name='Цена за покупку')
+    date_of_creation = models.DateTimeField(auto_now=False, auto_now_add=True, verbose_name='Дата создания')
+    date_last_modified = models.DateTimeField(auto_now=True, auto_now_add=False, verbose_name='Дата последнего изменения')
+    views_count = models.IntegerField(default=0, verbose_name='Просмотры')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='Владелец')
+    is_published = models.BooleanField(default=False, verbose_name='Опубликовано')
 
     def __str__(self):
-        return f"{self.pk} {self.title} {self.purchase_price} {self.category}"
+        return f'{self.name} {self.category} {self.price}'
 
     class Meta:
-        verbose_name = "продукт"
-        verbose_name_plural = "продукты"
+        verbose_name = 'продукт'
+        verbose_name_plural = 'продукты'
+        ordering = ('name',)
+        permissions = [
+            (
+                'set_published',
+                'Can publish posts'
+            )
+        ]
 
 
 class Category(models.Model):
-    title = models.CharField(
-        max_length=100, verbose_name="название", **NULLABLE
-    )
-    description = models.TextField()
+    name = models.CharField(max_length=100, unique=True, verbose_name='Наименование')
+    description = models.TextField(verbose_name='Описание')
 
     def __str__(self):
-        return self.title
+        return f'{self.name}'
 
     class Meta:
-        verbose_name = "категория"
-        verbose_name_plural = "категории"
+        verbose_name = 'категория'
+        verbose_name_plural = 'категории'
+        ordering = ('name',)
+
+
+class Contacts(models.Model):
+    country = models.CharField(max_length=50, verbose_name='Страна')
+    inn = models.CharField(max_length=20, verbose_name='ИНН')
+    address = models.CharField(max_length=100, verbose_name='Адрес')
+
+    def __str__(self):
+        return f'{self.country} {self.inn} {self.address}'
+
+    class Meta:
+        verbose_name = 'контакты'
+        verbose_name_plural = 'контакты'
 
 
 class Version(models.Model):
-    product = models.ForeignKey("Product", on_delete=models.CASCADE)
-    version_number = models.PositiveIntegerField(
-        default=0, verbose_name="номер версии"
-    )
-    version_name = models.CharField(
-        max_length=100, verbose_name="название версии"
-    )
-    is_active_version = models.BooleanField(
-        default=True, verbose_name="статус версии"
-    )
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name='продукт')
+    version_number = models.IntegerField(verbose_name='номер версии')
+    version_name = models.CharField(max_length=100, verbose_name='название версии')
+    is_active = models.BooleanField(default=True, verbose_name='текущая версия')
 
     def __str__(self):
-        return self.version_name
+        return f'{self.product} - {self.version_number} ({self.version_name})'
 
     class Meta:
-        verbose_name = "версия"
-        verbose_name_plural = "версии"
+        verbose_name = 'версия'
+        verbose_name_plural = 'версии'
